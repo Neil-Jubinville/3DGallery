@@ -1,0 +1,370 @@
+
+
+    
+        <style>canvas { width: 100%; height: 100% }</style>
+    
+        <script src="https://rawgithub.com/mrdoob/three.js/master/build/three.js"></script>
+        <script src="http://localhost:3000/javascript/ColladaLoader.js"></script>
+        <script src="http://localhost:3000/javascript/jquery-1.11.0.js"></script>
+        <script src="http://localhost:3000/javascript/Stats.js"></script>        
+        
+        <script>
+
+        // Author: Neil Jubinville 
+
+        
+        function toRad(deg) {
+            return deg * Math.PI / 180;
+        } 
+        
+            
+            var scene = new THREE.Scene();
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 10000 );
+            
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );   
+            
+            var geometry = new THREE.CubeGeometry(10,10,10);
+            var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+            
+            /*
+            var light1 = new THREE.DirectionalLight( 0xffffff, 2.0 );
+            light1.position.set( 0, 9, 10 );
+            scene.add( light1 );
+            */
+            
+            var light = new THREE.PointLight( 0xffFFFF, 1, 300 );
+            light.position.set( 0, 20, 0 );
+            scene.add( light );
+            
+            var light2 = new THREE.PointLight( 0xffFFFF, 1, 300 );
+            light2.position.set( 145, 20, 155 );
+            scene.add( light2 );
+            
+            var light3 = new THREE.PointLight( 0xffFFFF, 1, 300 );
+            light3.position.set( -100, 20, 155 );
+            scene.add( light3 );
+
+                
+            
+            var picture1 = createArtFrame("art/griffonroyal.png", 40, 54 , 1);
+            picture1.position.y=30;picture1.position.x=-75;
+            picture1.rotation.y=toRad(-90)          
+            scene.add(picture1);
+            
+            var picture2 = createArtFrame("art/louisv.png", 40, 54 , 1);
+            picture2.position.y=30;picture2.position.z=-68;
+            //picture2.rotation.y=toRad(90)         
+            scene.add(picture2);
+            
+            var picture3 = createArtFrame("art/armoiries.jpg", 60, 54 , 1);
+            picture3.position.y=30;picture3.position.x=75;
+            picture3.rotation.y=toRad(-90)          
+            scene.add(picture3);
+            
+            
+            var picture4 = createArtFrame("art/Cerf-volants-web.jpg", 60, 54 , 1);
+            picture4.position.y=30;picture4.position.z=80;picture4.position.x=-145;
+            //picture4.rotation.y=toRad(-90)            
+            scene.add(picture4);
+            
+            var picture5 = createArtFrame("art/Coeur-de-fer-web.jpg", 40, 54 , 1);
+            picture5.position.y=30;picture5.position.z=230;picture5.position.x=-145;
+            //picture4.rotation.y=toRad(-90)            
+            scene.add(picture5);
+            
+            var picture6 = createArtFrame("art/La-constellation-web.jpg", 40, 54 , 1);
+            picture6.position.set(-222,30,155); picture6.rotation.y=toRad(-90)          
+            scene.add(picture6);
+            
+            var picture7 = createArtFrame("art/La-corne-dabondance-web.jpg", 40, 54 , 1);
+            picture7.position.set(222,30,155);  picture7.rotation.y=toRad(-90)          
+            scene.add(picture7);
+            
+            var picture8 = createArtFrame("art/Lamour-me-donne-des-ailes-web.jpg", 40, 54 , 1);
+            picture8.position.set(145,30,90);           
+            scene.add(picture8);
+            
+            var picture9 = createArtFrame("art/Le-roi-soleil-web.jpg", 40, 54 , 1);
+            picture9.position.set(145,30,230);      
+            scene.add(picture9);
+            
+            var picture10 = createArtFrame("art/Affliction2.png", 80, 50 , 1);
+            picture10.position.set(0,40,230);       
+            scene.add(picture10);
+            
+            var targetOBJ = picture8;
+            //load wenwen image1
+            // load a texture, set wrap mode to repeat
+            var texture = THREE.ImageUtils.loadTexture( "art/louisv.png" );
+            var planeTexture = THREE.ImageUtils.loadTexture( "blackmarble.jpg" );
+            planeTexture.repeat.set( 200, 200);
+            planeTexture.wrapS = THREE.RepeatWrapping;
+            planeTexture.wrapT = THREE.RepeatWrapping;
+            
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.repeat.set( 1, 1 );
+            var artCanvas1 = new THREE.MeshPhongMaterial( { color: 0xffffff, map: texture } );
+            
+            var cube = new THREE.Mesh( geometry, artCanvas1 );
+            
+            
+            
+            //create a plane 
+            var planeGeometry = new THREE.PlaneGeometry( 1000, 1000 );
+            var planeMaterial =  new THREE.MeshPhongMaterial( { color: 0xffffff, map: planeTexture } );
+            var plane = new THREE.Mesh( planeGeometry, planeMaterial );
+            scene.add( plane );         
+            plane.position.set( 0, 0, 0 );
+            plane.rotation.x = - Math.PI / 2;
+            //plane.scale.set( 1000, 1000, 1000 );
+            
+            
+            var cubeWorld = new THREE.Object3D();   
+            cubeWorld.add(cube);
+            cubeWorld.position.set( 0, 9, 0 );
+            scene.add( cubeWorld );
+            
+            var cameraWorld = new THREE.Object3D();     
+            cameraWorld.add(camera);            
+            scene.add( cameraWorld );
+            
+            cameraWorld.position.z = 75;
+            cameraWorld.position.y = 18;        
+            camera.lookAt( new THREE.Vector3( 0, 0, 0 ));
+            
+            //cube.lookAt( new THREE.Vector3( 0, 0, 0 ));
+            
+            //cube.rotation.x=toRad(30);
+            
+            
+            //***************
+            var up =false;
+            var down =false;
+            var left =false;            
+            var right =false;
+            
+            
+            //**********************************************************************
+            
+            function render() {
+                requestAnimationFrame(render);
+                renderer.render(scene, camera);
+                
+                processNavigation()             
+            }
+            
+            //**************************************
+            
+            var rotObjectMatrix;
+            function rotateAroundObjectAxis(object, axis, radians) {
+                rotObjectMatrix = new THREE.Matrix4();
+                rotObjectMatrix.makeRotationAxis(axis.normalize(), radians);
+                object.matrix.multiply(rotObjectMatrix);     
+                object.quaternion.setFromRotationMatrix(object.matrix, object.scale);
+            }
+            
+            var rotWorldMatrix;
+            // Rotate an object around an arbitrary axis in world space       
+            function rotateAroundWorldAxis(object, axis, radians) {
+            
+            /*
+                rotWorldMatrix = new THREE.Matrix4();
+                rotWorldMatrix.makeRotationAxis(axis.normalize(), radians);             
+                rotWorldMatrix.multiply(object.matrix);        
+                
+                object.matrix = rotWorldMatrix; 
+                    
+                object.quaternion.setFromRotationMatrix(object.matrix); 
+                //object.matrixix(object.matrix);   
+                console.log(object.rotation.y);
+                */
+              
+                                //add only the rotation part to object
+                console.log(object.position);
+              
+                cubeWorld.rotation.y += toRad(2) 
+
+                        
+                           
+            }
+                        
+            
+            //**********************************************************************
+            
+            var last
+            var currentStep =0
+            var turnRate = 1.5
+            var walkRate = 2.5
+            
+            function processNavigation(){
+                
+                //here we need to look at the state of the key press and take action
+                if(up){
+                
+                   //here we want to move the camera in the posiiton 
+                   var posWorldMatrix = new THREE.Matrix4();
+                   //posWorldMatrix.translateOnAxis(new THREE.Vector3(0,0,1).normalize(), -3);   
+                   //camera.translateZ(.5);
+                   //camera.position.z-=.1;
+                   var keepY = cameraWorld.position.y;                 
+                   cameraWorld.translateOnAxis( new THREE.Vector3(0,0,1).normalize(), walkRate*-1 );
+                   cameraWorld.position.y=keepY;
+                   //cube.multiply( posWorldMatrix);
+
+                   
+                     
+                   
+                   }
+                if(down){
+                
+                   var keepY = cameraWorld.position.y;                 
+                   cameraWorld.translateOnAxis( new THREE.Vector3(0,0,1).normalize(), walkRate );
+                   cameraWorld.position.y=keepY;
+                   
+                   
+                   }        
+                if(left){
+                   //if we are turning left we want to turn on the vertical axis which is  Y but we want the absolute Y not the already
+                   // articulated posiiton of y on the camera since it is normally tilted. rotate the 
+                   //var newStep = currentStep +1;
+                   //rotateAroundWorldAxis(cube, new THREE.Vector3(0,1,0),toRad( 1  ));   
+                    //currentStep = newStep;
+                    cameraWorld.rotation.y += toRad(turnRate) 
+                                   
+                   
+                   }           
+                if(right){
+                
+                        //rotateAroundWorldAxis(cube, new THREE.Vector3(0,1,0),toRad(2)*-1);                
+                        cameraWorld.rotation.y -= toRad(turnRate)          
+                   }
+
+                
+            }
+            
+            
+            window.onkeydown = function(e) {
+                                                   var key = e.keyCode;            
+                                                               
+                                                   if(key==87 )
+                                                      up = true;           
+                                                    
+                                                   if(key==83)
+                                                      down = true;    
+                                                        
+                                                   if(key==65)
+                                                     left=true;                
+                                                        
+                                                   if(key==68)
+                                                     right=true;                
+                    
+                        }
+                        
+             window.onkeyup = function(e) {
+                                                   var key = e.keyCode;            
+                                                               
+                                                   if(key==87 )
+                                                      up = false;          
+                                                    
+                                                   if(key==83)
+                                                      down = false;    
+                                                        
+                                                   if(key==65)
+                                                     left=false;                   
+                                                        
+                                                   if(key==68)
+                                                     right=false;               
+                    
+                        }
+                        
+                        
+                        
+                                //*************************************************
+        // first item load the gallery
+        var dae;    
+        var loader = new THREE.ColladaLoader();
+        loader.options.convertUpAxis = true;    
+        loader.load('art/wengallery.dae', function (collada) {        
+          dae = collada.scene;  
+          scene.add( dae );
+          dae.scale.x = dae.scale.y = dae.scale.z = 10;
+      
+        });   
+            
+                        
+        //dae.scale.x = dae.scale.y = dae.scale.z = 4;
+       // dae.updateMatrix(); 
+                        
+                        
+                        
+            
+            //**********************************************************************
+            
+            var stats = new Stats();
+            stats.setMode(0); // 0: fps, 1: ms
+            
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+            
+            document.body.appendChild( stats.domElement );
+            
+            setInterval( function () {
+            
+                stats.begin();
+            
+                // your code goes here
+            
+                stats.end();
+            
+            }, 1000 / 60 ); 
+                
+    
+            //*********************************************************************
+        
+            function createArtFrame(imagePath,width,height,depth){
+                
+                var geo = new THREE.CubeGeometry(width,height,depth);                               
+                var textr = THREE.ImageUtils.loadTexture( imagePath );                      
+                textr.wrapS = THREE.RepeatWrapping;
+                textr.wrapT = THREE.RepeatWrapping;
+                textr.repeat.set( 1, 1 );
+                var artCanvas = new THREE.MeshPhongMaterial( { color: 0xffffff, map: textr } );             
+                var artFrame = new THREE.Mesh( geo, artCanvas );
+                return artFrame;        
+                
+            }
+                
+            //**************************
+            
+            function repos(){
+                //sect the vector3d for the new posiiton
+                targetOBJ.position.x = $("#posx").val();
+                targetOBJ.position.y = $("#posy").val();
+                targetOBJ.position.z = $("#posz").val();
+                
+            }   
+                
+                        
+            
+            render();
+                     
+            
+        </script>
+        
+        
+        <div id="output" ></div>
+        <div id="colorBox" ></div>
+        
+        <div>
+            <h1> 3D Art Positioning Tool </h1>
+             <input type=text id=posx onchange="repos()" >
+             <input type=text id=posy onchange="repos()" >
+             <input type=text id=posz onchange="repos()" >
+        
+        </div>
+     

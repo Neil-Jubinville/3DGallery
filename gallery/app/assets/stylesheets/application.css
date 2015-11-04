@@ -1,0 +1,94 @@
+/*
+ 
+Author:  Neil Jubinville ;
+
+ */
+
+ 
+
+
+html{
+
+  height: 100%;
+
+}
+
+.content{
+
+  text-align:center;
+  margin: 0px auto 0px auto;
+  width:75%;
+  height:100%;
+  margin-top: 40px;
+
+} 
+
+.headerfont{
+
+  font-weight:bold;color:#000000;
+  letter-spacing:-1pt;
+  word-spacing:4pt;
+  font-family:impact, sans-serif;
+  line-height:1;
+
+}
+
+.site_title{
+
+  text-shadow:1px 1px 7px rgba(215,105,255,1);  
+  font-size:73px;
+  
+}
+
+.site_sub_title{
+
+  text-shadow:1px 1px 7px rgba(92,255,108,1);
+  font-size:40px;
+ 
+}
+
+#siglink {
+
+    background-image: url(https://avatars2.githubusercontent.com/u/1330474?v=3&s=460);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    left:40px;
+    top:20px;
+    color: white;
+    font-size:17px;
+    font-weight: 700;
+    width:150px;
+    height:150px;
+
+}
+
+.sigtext {
+
+  position: relative;
+  left: 160px;
+
+}
+
+
+body{
+
+height: 100%;
+
+background-image   :   
+                       url(https://mdn.mozillademos.org/files/11307/bubbles.png),
+                       linear-gradient(to right, rgba(30, 75, 115, 1),  rgba(255, 255, 255, 0));
+
+background-repeat  : 
+                       no-repeat,
+                       no-repeat;
+
+background-position:                        
+                       left,
+                       right;
+
+background-size:       cover,
+                       cover;
+
+
+}
